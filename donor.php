@@ -356,6 +356,11 @@
                             <label for="city"><i class="fas fa-city"></i> City</label>
                             <input type="text" id="city" name="city" placeholder="Enter your city" required>
                         </div>
+                    <div class="form-group">
+            <label for="last_donation_date"><i class="fas fa-calendar-check"></i> Last Donation Date</label>
+            <input type="date" id="last_donation_date" name="last_donation_date">
+        </div>
+    
 
                         <div class="form-group">
                             <label for="availability_status"><i class="fas fa-check-circle"></i> Availability</label>
@@ -369,10 +374,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <label for="medical_conditions"><i class="fas fa-notes-medical"></i> Medical Conditions (if any)</label>
-                        <textarea id="medical_conditions" name="medical_conditions" rows="3" placeholder="List any chronic conditions, allergies, or recent surgeries..."></textarea>
-                    </div>
+                    
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="consent" name="consent" required>
