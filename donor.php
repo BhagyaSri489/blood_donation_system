@@ -260,8 +260,8 @@
 
     <div class="header">
         <div class="logo">
-            <i class="fas fa-hand-holding-medical"></i>
-            <span>Blood Donation System</span>
+            <i class="fas fa-heartbeat"></i>
+            <span>Blood Donation</span>
         </div>
         <div class="quote">"Donate blood, save life."</div>
     </div>
