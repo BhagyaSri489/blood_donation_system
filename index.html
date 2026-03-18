@@ -335,6 +335,95 @@ body {
             .nav-links { display: none; } /* Simplified for demo: mobile menu would go here */
             .section-title h2 { font-size: 2rem; }
         }
+        #chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#chatbox {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  background: #ffffff;
+  border-radius: 15px;
+  display: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+#chatbox-header {
+  background: #e53935;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+}
+
+#chatbox-body {
+  height: 260px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #ffffff;   /* pure white */
+}
+/* USER MESSAGE */
+.user-msg {
+  text-align: right;
+  margin: 8px 0;
+}
+
+.user-msg span {
+  background: #e53935;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px 15px 0 15px;
+  display: inline-block;
+  max-width: 80%;
+}
+
+/* BOT MESSAGE */
+.bot-msg {
+  text-align: left;
+  margin: 8px 0;
+}
+.bot-msg span {
+  background: #eeeeee;
+  color: #000;   /* ADD THIS */
+  padding: 8px 12px;
+  border-radius: 15px 15px 15px 0;
+  display: inline-block;
+  max-width: 80%;
+}
+
+/* INPUT AREA */
+#chatbox-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+#chatbox-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+#chatbox-input button {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -527,6 +616,19 @@ body {
                 <p>&copy; 2024 Blood Donation System. All Rights Reserved.</p>
             </div>
         </div>
+        <button id="chatbot-btn" onclick="toggleChat()">💬</button>
+
+<div id="chatbox">
+  <div id="chatbox-header">Blood Assistant 🤖</div>
+  <div id="chatbox-body">
+    <p><b>Bot:</b> Hi! Ask me about blood donation 😊</p>
+  </div>
+  <div id="chatbox-input">
+    <input type="text" id="userInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
     </footer>
 
     <script>
@@ -540,6 +642,95 @@ body {
                 nav.style.padding = '15px 0';
             }
         });
+        function toggleChat() {
+  let chat = document.getElementById("chatbox");
+  chat.style.display = chat.style.display === "block" ? "none" : "block";
+}
+
+function sendMessage() {
+  let inputField = document.getElementById("userInput");
+  let input = inputField.value.toLowerCase().trim();
+  let chatBody = document.getElementById("chatbox-body");
+
+  if(input === "") return;
+
+  // User message
+  chatBody.innerHTML += `
+    <div class="user-msg"><span>${input}</span></div>
+  `;
+
+  let reply = "";
+
+  if (
+  input.includes("who") && input.includes("donate") ||
+  input.includes("eligible") ||
+  input.includes("eligibility")
+) {
+  reply = "A healthy person aged 18–65, weighing at least 50kg, with good health can donate blood.";
+}
+
+else if (
+  input.includes("when") ||
+  input.includes("again") ||
+  input.includes("how often")
+) {
+  reply = "You can donate blood every 3 months.";
+}
+
+else if (
+  input.includes("safe") ||
+  input.includes("danger")
+) {
+  reply = "Yes, blood donation is completely safe and done using sterile equipment.";
+}
+
+else if (
+  input.includes("time") ||
+  input.includes("how long")
+) {
+  reply = "It takes about 10–15 minutes to donate blood.";
+}
+
+else if (
+  input.includes("women") ||
+  input.includes("female")
+) {
+  reply = "Yes, women can donate blood if they meet eligibility criteria and are not pregnant.";
+}
+
+else if (
+  input.includes("before") ||
+  input.includes("prepare")
+) {
+  reply = "Eat healthy food, drink water, and get good sleep before donating.";
+}
+
+else if (
+  input.includes("why") ||
+  input.includes("importance")
+) {
+  reply = "One blood donation can save up to 3 lives.";
+}
+
+else if (
+  input.includes("hello") ||
+  input.includes("hi") ||
+  input.includes("hey")
+) {
+  reply = "Hello 😊! Ask me anything about blood donation.";
+}
+
+else {
+  reply = "Sorry, I didn’t understand. Please ask about blood donation.";
+}
+  // Bot message
+  chatBody.innerHTML += `
+    <div class="bot-msg"><span>${reply}</span></div>
+  `;
+
+  inputField.value = "";
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
     </script>
 </body>
 </html>

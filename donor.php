@@ -1,6 +1,10 @@
-<?php if(isset($_GET['success']) && $_GET['success'] == 1): ?>
-<!DOCTYPE html>
-<?php endif; ?>
+<?php
+if(!isset($_GET['eligible'])){
+    echo "⚠ Please check eligibility first.";
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,8 +299,7 @@
                 <?php if(isset($_GET['success']) && $_GET['success'] == 1): ?>
                     <div class="success-message">Donor Registered Successfully!</div>
                 <?php endif; ?>
-
-                <form action="add_donor.php" method="POST">
+<form id="donorForm" action="add_donor.php" method="POST">
                     <div class="form-group">
                         <label for="full_name"><i class="fas fa-user"></i> Full Name</label>
                         <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required>
@@ -337,7 +340,8 @@
 
                         <div class="form-group">
                             <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required>
+                            <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number"
+pattern="[0-9]{10}" maxlength="10" required>
                         </div>
                     </div>
 
@@ -389,6 +393,21 @@
 
         </div>
     </div>
+<script>
+document.getElementById("donorForm").addEventListener("submit", function(e){
+    let lastDate = document.getElementById("last_donation_date").value;
 
+    if(lastDate){
+        let last = new Date(lastDate);
+        let today = new Date();
+        let diff = (today - last) / (1000*60*60*24);
+
+        if(diff < 90){
+            alert("You must wait 3 months before donating again.");
+            e.preventDefault();
+        }
+    }
+});
+</script>
 </body>
 </html>
